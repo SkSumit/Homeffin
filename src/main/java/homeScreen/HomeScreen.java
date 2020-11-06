@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package homeScreen;
+import java.util.Arrays;
 
 
 
@@ -45,6 +46,7 @@ public class HomeScreen extends javax.swing.JFrame {
         userSignInButton = new javax.swing.JButton();
         dhaaText = new javax.swing.JLabel();
         userSignUpButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         adminSignInButton = new javax.swing.JButton();
         HomeffinsSubtext = new javax.swing.JLabel();
 
@@ -94,6 +96,11 @@ public class HomeScreen extends javax.swing.JFrame {
         userSignInButton.setForeground(new java.awt.Color(255, 255, 255));
         userSignInButton.setText("Sign In");
         userSignInButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        userSignInButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                userSignInButtonMouseClicked(evt);
+            }
+        });
         userSignInButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 userSignInButtonActionPerformed(evt);
@@ -110,9 +117,22 @@ public class HomeScreen extends javax.swing.JFrame {
         userSignUpButton.setForeground(new java.awt.Color(255, 255, 255));
         userSignUpButton.setText("Sign Up");
         userSignUpButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        userSignUpButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                userSignUpButtonMouseClicked(evt);
+            }
+        });
         userSignUpButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 userSignUpButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jLabel1FocusGained(evt);
             }
         });
 
@@ -120,24 +140,24 @@ public class HomeScreen extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(userSignInButton, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(passwordText)
-                        .addComponent(emailText)
-                        .addComponent(jScrollPane1)
-                        .addComponent(passwordInput, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(dhaaText)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(userSignUpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(25, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(signInText)
                 .addGap(107, 107, 107))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(userSignInButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(passwordText)
+                    .addComponent(emailText)
+                    .addComponent(jScrollPane1)
+                    .addComponent(passwordInput)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(dhaaText)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(userSignUpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,6 +174,8 @@ public class HomeScreen extends javax.swing.JFrame {
                 .addComponent(passwordInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addComponent(userSignInButton)
+                .addGap(50, 50, 50)
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dhaaText)
@@ -187,11 +209,11 @@ public class HomeScreen extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(191, 191, 191)
+                .addContainerGap(194, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(HomeffinsText)
                     .addComponent(HomeffinsSubtext))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 195, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 197, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
@@ -236,7 +258,7 @@ public class HomeScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_userSignInButtonActionPerformed
 
     private void userSignUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userSignUpButtonActionPerformed
-        // TODO add your handling code here:
+        new Register().setVisible(true);
     }//GEN-LAST:event_userSignUpButtonActionPerformed
 
     private void adminSignInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminSignInButtonActionPerformed
@@ -258,6 +280,34 @@ public class HomeScreen extends javax.swing.JFrame {
         new adminLogin().setVisible(true);
         System.out.println("Console is niceh");
     }//GEN-LAST:event_adminSignInButtonMouseClicked
+
+    private void userSignInButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userSignInButtonMouseClicked
+        System.out.println(emailInput.getText());
+        char[] input = passwordInput.getPassword();
+        char[] correctPassword = { 'h', 'e', 'y' };
+        String name = "Hey";
+        System.out.println(correctPassword);
+        String email = "hey@gmail.com";
+        if(emailInput.getText().equals(email)){
+            if(Arrays.equals(input, correctPassword)){
+            System.out.println("Welcome");
+            setVisible(false);
+        new Menu(name).setVisible(true);
+        }
+        }
+        else{
+            System.out.println("Not Welcome");
+            jLabel1.setText("Wrong Email or Password");
+        }
+    }//GEN-LAST:event_userSignInButtonMouseClicked
+
+    private void jLabel1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jLabel1FocusGained
+        jLabel1.setVisible(false);
+    }//GEN-LAST:event_jLabel1FocusGained
+
+    private void userSignUpButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userSignUpButtonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_userSignUpButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -302,6 +352,7 @@ public class HomeScreen extends javax.swing.JFrame {
     private javax.swing.JLabel dhaaText;
     private javax.swing.JTextPane emailInput;
     private javax.swing.JLabel emailText;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
