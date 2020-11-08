@@ -62,7 +62,7 @@ public class Databaseconn {
     }
 
     public int postSignUpUser(String firstName, String lastName,
-             String mobile, String gender, String email, String password, String confirmedPassword) {
+            String mobile, String gender, String email, String password, String confirmedPassword) {
 
         int user = 0;
 
@@ -85,4 +85,49 @@ public class Databaseconn {
         return user;
     }
 
+    public ArrayList<String> getSignInUser(String email, String password) {
+
+        ArrayList<String> user = new ArrayList<String>();
+        final String GET_SIGN_IN_USER = "select userId, userFirstName from "
+                + databaseName + ".users where userEmail = '" + email + "' and userPassword = "
+                + " SHA('" + password + "')";
+
+        try {
+            System.out.println(GET_SIGN_IN_USER);
+            var resultSet = ExecuteOperation(GET_SIGN_IN_USER);
+
+            if (resultSet.next()) {
+                System.out.println(resultSet.getString(1) + resultSet.getString(2));
+            }
+            user.add(resultSet.getString(1));
+            user.add(resultSet.getString(2));
+        } catch (SQLException ex) {
+            Logger.getLogger(Databaseconn.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return user;
+    }
+
+    public ArrayList<String> getSignInAdmin(String email, String password) {
+
+        ArrayList<String> user = new ArrayList<String>();
+        final String GET_SIGN_IN_ADMIN = "select adminId from "
+                + databaseName + ".admins where adminUsername = '" + email + "' and adminPassword = "
+                + " SHA('" + password + "')";
+
+        try {
+            System.out.println(GET_SIGN_IN_ADMIN);
+            var resultSet = ExecuteOperation(GET_SIGN_IN_ADMIN);
+
+            if (resultSet.next()) {
+                System.out.println(resultSet.getString(1));
+            }
+            user.add(resultSet.getString(1));
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Databaseconn.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return user;
+    }
 }
