@@ -4,10 +4,9 @@
  * and open the template in the editor.
  */
 package homeScreen;
-import java.util.Arrays;
 
-
-
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,11 +14,14 @@ import java.util.Arrays;
  */
 public class HomeScreen extends javax.swing.JFrame {
 
+    private Databaseconn databaseconn;
+
     /**
      * Creates new form login
      */
     public HomeScreen() {
         initComponents();
+        databaseconn = new Databaseconn();
     }
 
     /**
@@ -85,7 +87,6 @@ public class HomeScreen extends javax.swing.JFrame {
 
         passwordInput.setBackground(new java.awt.Color(255, 255, 255));
         passwordInput.setForeground(new java.awt.Color(23, 23, 29));
-        passwordInput.setText("jPasswordField1");
         passwordInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passwordInputActionPerformed(evt);
@@ -255,18 +256,27 @@ public class HomeScreen extends javax.swing.JFrame {
 
     private void userSignInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userSignInButtonActionPerformed
         // TODO add your handling code here:
+        System.out.println(emailInput.getText() + passwordInput.getText());
+
+        ArrayList<String> result = databaseconn.getSignInUser(emailInput.getText(), passwordInput.getText());
+        System.out.println("HOMESCREEN" + result);
+        if (result.size() > 0) {
+            setVisible(false);
+            new Menu().setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Login Information is Incorrect.");
+        }
+
     }//GEN-LAST:event_userSignInButtonActionPerformed
 
     private void userSignUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userSignUpButtonActionPerformed
-        new Register().setVisible(true);
+        setVisible(false);
+        new SignUpUser().setVisible(true);
     }//GEN-LAST:event_userSignUpButtonActionPerformed
 
     private void adminSignInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminSignInButtonActionPerformed
         // TODO add your handling code here:
-        System.out.println("Console is eh");
-        
-        System.out.println("Console is niceh");
-      
+
     }//GEN-LAST:event_adminSignInButtonActionPerformed
 
     private void passwordInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordInputActionPerformed
@@ -275,34 +285,18 @@ public class HomeScreen extends javax.swing.JFrame {
 
     private void adminSignInButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminSignInButtonMouseClicked
         // TODO add your handling code here:
-         System.out.println("Console mouse");
+
         setVisible(false);
         new adminLogin().setVisible(true);
-        System.out.println("Console is niceh");
+
     }//GEN-LAST:event_adminSignInButtonMouseClicked
 
     private void userSignInButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userSignInButtonMouseClicked
-        System.out.println(emailInput.getText());
-        char[] input = passwordInput.getPassword();
-        char[] correctPassword = { 'h', 'e', 'y' };
-        String name = "Hey";
-        System.out.println(correctPassword);
-        String email = "hey@gmail.com";
-        if(emailInput.getText().equals(email)){
-            if(Arrays.equals(input, correctPassword)){
-            System.out.println("Welcome");
-            setVisible(false);
-        new Menu(name).setVisible(true);
-        }
-        }
-        else{
-            System.out.println("Not Welcome");
-            jLabel1.setText("Wrong Email or Password");
-        }
+
     }//GEN-LAST:event_userSignInButtonMouseClicked
 
     private void jLabel1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jLabel1FocusGained
-        jLabel1.setVisible(false);
+
     }//GEN-LAST:event_jLabel1FocusGained
 
     private void userSignUpButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userSignUpButtonMouseClicked
@@ -316,7 +310,7 @@ public class HomeScreen extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

@@ -5,6 +5,9 @@
  */
 package homeScreen;
 
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author kolsu
@@ -14,8 +17,11 @@ public class adminLogin extends javax.swing.JFrame {
     /**
      * Creates new form adminLogin
      */
+    private Databaseconn databaseconn;
+
     public adminLogin() {
         initComponents();
+        databaseconn = new Databaseconn();
     }
 
     /**
@@ -35,9 +41,9 @@ public class adminLogin extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
+        emailInput = new javax.swing.JTextPane();
+        passwordInput = new javax.swing.JPasswordField();
+        signInBtn = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
 
@@ -63,26 +69,31 @@ public class adminLogin extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Password");
 
-        jTextPane1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextPane1.setForeground(new java.awt.Color(23, 23, 29));
-        jScrollPane1.setViewportView(jTextPane1);
+        emailInput.setBackground(new java.awt.Color(255, 255, 255));
+        emailInput.setForeground(new java.awt.Color(23, 23, 29));
+        jScrollPane1.setViewportView(emailInput);
 
-        jPasswordField1.setBackground(new java.awt.Color(255, 255, 255));
-        jPasswordField1.setForeground(new java.awt.Color(23, 23, 29));
-        jPasswordField1.setText("jPasswordField1");
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+        passwordInput.setBackground(new java.awt.Color(255, 255, 255));
+        passwordInput.setForeground(new java.awt.Color(23, 23, 29));
+        passwordInput.setText("jPasswordField1");
+        passwordInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
+                passwordInputActionPerformed(evt);
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(23, 23, 29));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Sign In");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        signInBtn.setBackground(new java.awt.Color(23, 23, 29));
+        signInBtn.setForeground(new java.awt.Color(255, 255, 255));
+        signInBtn.setText("Sign In");
+        signInBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        signInBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                signInBtnMouseClicked(evt);
+            }
+        });
+        signInBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                signInBtnActionPerformed(evt);
             }
         });
 
@@ -107,11 +118,11 @@ public class adminLogin extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(signInBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel5)
                     .addComponent(jLabel4)
                     .addComponent(jScrollPane1)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+                    .addComponent(passwordInput, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -127,9 +138,9 @@ public class adminLogin extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(passwordInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
-                .addComponent(jButton1)
+                .addComponent(signInBtn)
                 .addGap(18, 18, 18)
                 .addComponent(jButton3)
                 .addContainerGap(167, Short.MAX_VALUE))
@@ -203,19 +214,31 @@ public class adminLogin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+    private void passwordInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordInputActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
+    }//GEN-LAST:event_passwordInputActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-       dispose();
-      new HomeScreen().setVisible(true);
+        dispose();
+        new HomeScreen().setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void signInBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signInBtnMouseClicked
         System.out.println("OKAY");
-    }//GEN-LAST:event_jButton1MouseClicked
+
+    }//GEN-LAST:event_signInBtnMouseClicked
+
+    private void signInBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signInBtnActionPerformed
+        // TODO add your handling code here:
+        ArrayList<String> result = databaseconn.getSignInAdmin(emailInput.getText(), passwordInput.getText());
+        if (result.size() > 0) {
+            JOptionPane.showMessageDialog(null, "Admin welcome to Dashboard.");
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Login Information is Incorrect.");
+        }
+    }//GEN-LAST:event_signInBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -224,7 +247,7 @@ public class adminLogin extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -253,7 +276,7 @@ public class adminLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTextPane emailInput;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
@@ -263,8 +286,8 @@ public class adminLogin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JPasswordField passwordInput;
+    private javax.swing.JButton signInBtn;
     // End of variables declaration//GEN-END:variables
 }
