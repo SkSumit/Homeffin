@@ -21,7 +21,7 @@ public class HomeScreen extends javax.swing.JFrame {
      */
     public HomeScreen() {
         initComponents();
-        databaseconn = new Databaseconn();
+        databaseconn = new Databaseconn();//Calling Constructor (creating object)
     }
 
     /**
@@ -262,7 +262,9 @@ public class HomeScreen extends javax.swing.JFrame {
         System.out.println("HOMESCREEN" + result);
         if (result.size() > 0) {
             setVisible(false);
-            new Menu().setVisible(true);
+            String name = result.get(1);
+            System.out.println(name);
+            new Menu(name.toString()).setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Login Information is Incorrect.");
         }
