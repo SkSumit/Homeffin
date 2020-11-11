@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.21, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.22, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: homeffins
 -- ------------------------------------------------------
--- Server version	8.0.21
+-- Server version	8.0.22
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,32 +16,12 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `tiffins`
---
-
-DROP TABLE IF EXISTS `tiffins`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `tiffins` (
-  `tiffinId` int DEFAULT NULL,
-  `tiffinName` varchar(50) DEFAULT NULL,
-  `tiffinRoti` int DEFAULT NULL,
-  `tiffinSabji` enum('Panner','Channa','Kaju Kari') DEFAULT NULL,
-  `tiffinRice` int DEFAULT NULL,
-  `tiffinDal` enum('Sweet','Hot','Tadka') DEFAULT NULL,
-  `tiffinPappad` int DEFAULT NULL,
-  `tiffinSweet` enum('Basundi','Gulab Jamun','Kheer') DEFAULT NULL,
-  `tiffinPrice` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `tiffins`
 --
 
 LOCK TABLES `tiffins` WRITE;
 /*!40000 ALTER TABLE `tiffins` DISABLE KEYS */;
-INSERT INTO `tiffins` VALUES (1,'Veg Premium',3,'Panner',0,'Sweet',3,'Basundi',80);
+INSERT INTO `tiffins` VALUES (1,'Veg Premium',3,'Panner',0,'Sweet',3,'Basundi',80),(2,'Non Veg Premium',3,'Kaju Kari',1,'Hot',4,'Kheer',100),(2,'Veg Mix',3,'Channa',1,'Tadka',4,'Basundi',100),(2,'Non Veg Mix',3,'Panner',1,'Tadka',4,'Kheer',100);
 /*!40000 ALTER TABLE `tiffins` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +34,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-11-08 20:05:38
+-- Dump completed on 2020-11-11 12:28:44
