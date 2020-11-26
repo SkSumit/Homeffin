@@ -259,6 +259,7 @@ public class HomeScreen extends javax.swing.JFrame {
         System.out.println(emailInput.getText() + passwordInput.getText());
 
         ArrayList<String> result = databaseconn.getSignInUser(emailInput.getText(), passwordInput.getText());
+
         System.out.println("HOMESCREEN" + result);
         if (result.size() > 0) {
             setVisible(false);
@@ -337,6 +338,7 @@ public class HomeScreen extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new HomeScreen().setVisible(true);
+
             }
         });
     }

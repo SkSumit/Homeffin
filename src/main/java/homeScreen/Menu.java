@@ -4,35 +4,33 @@
  * and open the template in the editor.
  */
 package homeScreen;
-import java.awt.Color;
+
 import java.util.ArrayList;
-import java.util.Date;
-import javax.swing.JOptionPane;
-import javax.swing. *;
 
 /**
  *
  * @author Kulkarni
  */
 public class Menu extends javax.swing.JFrame {
-   
+
     private Databaseconn databaseconn;
-    private ArrayList<ArrayList<String>> menu ;
+    private ArrayList<ArrayList<String>> menu;
     private int rows;
-    
-    public Menu(){
+
+    public Menu() {
         initComponents();
     }
-    
-    public Menu(String name){
+
+    public Menu(String name) {
         databaseconn = new Databaseconn();
         menu = databaseconn.getMenu();
         rows = databaseconn.getRows();
-        System.out.println(menu.get(2));
+        System.out.println(menu);
         System.out.println(rows);
         initComponents();
-        jLabel3.setText("Welcome "+name); 
+        jLabel3.setText("Welcome " + name);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -176,7 +174,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void jComboBox2AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jComboBox2AncestorAdded
         for (int i = 0; i < rows; i++) {
-         jComboBox2.addItem(menu.get(i).get(1).toString());   
+            jComboBox2.addItem(menu.get(i).get(1).toString());
         }
     }//GEN-LAST:event_jComboBox2AncestorAdded
 
@@ -191,7 +189,7 @@ public class Menu extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
