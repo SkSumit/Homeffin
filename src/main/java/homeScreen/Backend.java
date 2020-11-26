@@ -1,14 +1,15 @@
 package homeScreen;
 
-
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class Backend {
 
-   private Databaseconn databaseconn;
+    private Databaseconn databaseconn;
 
     public Backend() {
-       databaseconn = new Databaseconn();
-        System.out.println("Hello & Welcome to Constructor");
+        databaseconn = new Databaseconn();
+
     }
 
     public int Register(String firstName, String lastName,
@@ -18,4 +19,50 @@ public class Backend {
                 password, confirmedPassword);
         return user;
     }
+
+    public ArrayList<Tiffins> getTiffins() {
+
+        ArrayList<Tiffins> tiffinList = new ArrayList<Tiffins>();
+        try {
+            ResultSet result = databaseconn.getTiffins();
+            while (result.next()) {
+                Tiffins tiffin = new Tiffins();
+
+                tiffin.id = result.getInt("tiffinId");
+                tiffin.name = result.getString("tiffinName");
+                tiffin.roti = result.getInt("tiffinRoti");
+                tiffin.sabji = result.getString("tiffinSabji");
+                tiffin.rice = result.getInt("tiffinRice");
+                tiffin.dal = result.getString("tiffinDal");
+                tiffin.pappad = result.getInt("tiffinPappad");
+                tiffin.sweet = result.getString("tiffinSweet");
+                tiffin.price = result.getInt("tiffinPrice");
+
+                tiffinList.add(tiffin);
+
+            }
+        } catch (Exception ex) {
+
+        }
+
+        return tiffinList;
+    }
+
+    public boolean deleteTiffin(int tiffinId) {
+
+        try {
+            databaseconn.deleteTiffins(tiffinId);
+            return true;
+        } catch (Exception ex) {
+            return false;
+
+        }
+
+    }
+
+    public boolean checkTiffinIdExsist(int tiffinId) {
+
+        return true;
+    }
+
 }

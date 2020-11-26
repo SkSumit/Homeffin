@@ -1,6 +1,5 @@
 package homeScreen;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -21,13 +20,12 @@ public class Databaseconn {
 
     //SQL QUERIES
     //private static final String GET_ALL_USERS = "select * from restro.custdata";
-
     //Constructor and Innitialization
     public Databaseconn() {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+databaseName+"",
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + databaseName + "",
                     connectionUsername, connectionPassword);
             System.out.println("Connected");
             statement = conn.createStatement();
@@ -45,22 +43,6 @@ public class Databaseconn {
     private int ExecuteUpdateOperation(String query) throws SQLException {
         return statement.executeUpdate(query);//For insert update delete
     }
-
-    //GET Registered Users from DB
-    /*public ArrayList<String> getUsers() {
-        ArrayList<String> userList = new ArrayList<String>();
-
-        try {
-            var resultSet = ExecuteOperation(GET_ALL_USERS);
-            while (resultSet.next()) {
-                System.out.println(resultSet);
-                userList.add(resultSet.getString("name"));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Databaseconn.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return userList;
-    }*/
 
     public int postSignUpUser(String firstName, String lastName,
             String mobile, String gender, String email, String password, String confirmedPassword) {
@@ -131,16 +113,16 @@ public class Databaseconn {
 
         return user;
     }
-    
-    public ArrayList<ArrayList<String>> getMenu(){
+
+    public ArrayList<ArrayList<String>> getMenu() {
         final String GET_MENU = "Select * from tiffins";
         int rowcount = 0;
         ArrayList<ArrayList<String>> menu = new ArrayList<ArrayList<String>>();
         try {
             ResultSet result = ExecuteOperation(GET_MENU);
             while (result.next()) {
-                 ArrayList<String> premenu = new ArrayList<String>();
-                for (int i = 1; i <= result.getMetaData().getColumnCount() ; i++) {
+                ArrayList<String> premenu = new ArrayList<String>();
+                for (int i = 1; i <= result.getMetaData().getColumnCount(); i++) {
                     premenu.add(result.getString(i));
                 }
                 menu.add(rowcount, premenu);
@@ -151,20 +133,47 @@ public class Databaseconn {
         }
         return menu;
     }
-    
-    public int getRows(){
+
+    public int getRows() {
         final String GET_NO_ROWS = "select count(*) from tiffins";
         int rows = 0;
         try {
-           ResultSet resultSet = ExecuteOperation(GET_NO_ROWS);
-        while (resultSet.next()) {
-            rows = resultSet.getInt(1);
-        }
+            ResultSet resultSet = ExecuteOperation(GET_NO_ROWS);
+            while (resultSet.next()) {
+                rows = resultSet.getInt(1);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(Databaseconn.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return rows;
-        
+
+    }
+
+    public ResultSet getTiffins() {
+        final String GET_MENU = "Select * from tiffins";
+        ResultSet result = null;
+        try {
+            result = ExecuteOperation(GET_MENU);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Databaseconn.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+
+    public int deleteTiffins(int tiffinId) {
+        final String DELETE_TIFFIN = "delete from tiffins where tiffinId = " + tiffinId;
+        System.out.println(DELETE_TIFFIN);
+        int result = 0;
+        try {
+            result = ExecuteUpdateOperation(DELETE_TIFFIN);
+            System.out.println(result);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Databaseconn.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+
     }
 }
