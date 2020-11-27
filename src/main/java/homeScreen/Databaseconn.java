@@ -172,6 +172,7 @@ public class Databaseconn {
 
         } catch (SQLException ex) {
             Logger.getLogger(Databaseconn.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
         }
         return result;
 

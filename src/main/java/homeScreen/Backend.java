@@ -4,7 +4,9 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class Backend {
-
+    
+    private int results;
+    
     private Databaseconn databaseconn;
 
     public Backend() {
@@ -49,10 +51,14 @@ public class Backend {
     }
 
     public boolean deleteTiffin(int tiffinId) {
-
+        
         try {
-            databaseconn.deleteTiffins(tiffinId);
-            return true;
+            results = databaseconn.deleteTiffins(tiffinId);
+            if(results == 1){
+             return true;   
+            }
+            else
+             return false;
         } catch (Exception ex) {
             return false;
 
