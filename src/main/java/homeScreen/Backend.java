@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class Backend {
+    private int results;
 
     private Databaseconn databaseconn;
 
@@ -13,10 +14,10 @@ public class Backend {
     }
 
     public int Register(String firstName, String lastName,
-            String mobile, String gender, String email, String password, String confirmedPassword) {
+            String mobile, String gender, String email, String password, String confirmedPassword , String Dp) {
 
         int user = databaseconn.postSignUpUser(firstName, lastName, mobile, gender, email,
-                password, confirmedPassword);
+                password, confirmedPassword ,Dp);
         return user;
     }
 
@@ -41,6 +42,7 @@ public class Backend {
                 tiffinList.add(tiffin);
 
             }
+            System.out.println(tiffinList);
         } catch (Exception ex) {
 
         }
@@ -49,10 +51,14 @@ public class Backend {
     }
 
     public boolean deleteTiffin(int tiffinId) {
-
+        
         try {
-            databaseconn.deleteTiffins(tiffinId);
-            return true;
+            results = databaseconn.deleteTiffins(tiffinId);
+            if(results == 1){
+             return true;   
+            }
+            else
+             return false;
         } catch (Exception ex) {
             return false;
 
@@ -63,6 +69,19 @@ public class Backend {
     public boolean checkTiffinIdExsist(int tiffinId) {
 
         return true;
+    }
+    
+    public int placeOrder(Tiffins menu , int uid){
+       Order order = new Order();
+       ArrayList<Order> tiffinList = new ArrayList<Order>();
+       order.tid = menu.id;//tiffinid
+       order.price = menu.price;//price
+       order.uid = uid;//userid
+       order.rating = 5;
+       tiffinList.add(order);
+       
+       int result = databaseconn.orderTiffin(tiffinList);
+        return result;
     }
 
 }
