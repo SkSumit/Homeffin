@@ -24,6 +24,7 @@ public class adminDashboard extends javax.swing.JFrame {
     private Databaseconn databaseconn;
     private Backend backend;
     private ArrayList<Tiffins> tiffins;
+    private ArrayList<Orders> orders;
     private DefaultTableModel model = new DefaultTableModel();
 
     public adminDashboard() {
@@ -31,9 +32,6 @@ public class adminDashboard extends javax.swing.JFrame {
         cardLayout = (CardLayout) (mainPanel.getLayout());
         databaseconn = new Databaseconn();
         backend = new Backend();
-        tiffins = backend.getTiffins();
-
-        loadTable();
 
     }
 
@@ -44,17 +42,6 @@ public class adminDashboard extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
 
-    private void loadTable() {
-
-        model.setColumnIdentifiers(new Object[]{"ID", "NAME", "Roti", "Sabji", "Rice", "Dal", "Pappad", "Sweet", "Price"});
-        jTable1.setModel(model);
-
-        for (int i = 0; i < tiffins.size(); i++) {
-            model.addRow(new Object[]{tiffins.get(i).id, tiffins.get(i).name, tiffins.get(i).roti, tiffins.get(i).sabji, tiffins.get(i).rice,
-                tiffins.get(i).dal, tiffins.get(i).pappad, tiffins.get(i).sweet, tiffins.get(i).price});
-        }
-
-    }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -66,7 +53,25 @@ public class adminDashboard extends javax.swing.JFrame {
         orderBtn = new javax.swing.JButton();
         mainPanel = new javax.swing.JPanel();
         homePanel = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        noOfTiffins = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel22 = new javax.swing.JLabel();
+        incomeLifetime1 = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel23 = new javax.swing.JLabel();
+        tiffinSoldLifetime1 = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel24 = new javax.swing.JLabel();
+        avgRatingLifetime1 = new javax.swing.JLabel();
+        jPanel11 = new javax.swing.JPanel();
+        jLabel25 = new javax.swing.JLabel();
+        incomeToday1 = new javax.swing.JLabel();
+        jPanel12 = new javax.swing.JPanel();
+        jLabel26 = new javax.swing.JLabel();
+        tiffinSoldToday1 = new javax.swing.JLabel();
+        jPanel13 = new javax.swing.JPanel();
+        jLabel27 = new javax.swing.JLabel();
+        avgRatingToday1 = new javax.swing.JLabel();
         tiffinPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -93,7 +98,16 @@ public class adminDashboard extends javax.swing.JFrame {
         priceInput = new javax.swing.JTextField();
         deleteBtn = new javax.swing.JButton();
         ordersPanel = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        orderTable = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
+        curdOrders = new javax.swing.JLabel();
+        orderSubmitBtn = new javax.swing.JButton();
+        orderDeleteBtn = new javax.swing.JButton();
+        idLabel = new javax.swing.JLabel();
+        statusLabel1 = new javax.swing.JLabel();
+        orderIdInput = new javax.swing.JTextField();
+        orderComboBox = new javax.swing.JComboBox<>();
 
         jLabel4.setText("jLabel4");
 
@@ -156,31 +170,292 @@ public class adminDashboard extends javax.swing.JFrame {
         mainPanel.setLayout(new java.awt.CardLayout());
 
         homePanel.setBackground(new java.awt.Color(23, 23, 29));
+        homePanel.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                homePanelAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
 
-        jLabel1.setBackground(java.awt.Color.white);
-        jLabel1.setForeground(java.awt.Color.white);
-        jLabel1.setText("HOME> SHOW ORDERS BOOKED RN");
+        noOfTiffins.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        noOfTiffins.setForeground(java.awt.Color.white);
+        noOfTiffins.setText("Currently serving 7 types of Tiffins");
+
+        jPanel8.setBackground(new java.awt.Color(76, 80, 82));
+        jPanel8.setPreferredSize(new java.awt.Dimension(300, 150));
+
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel22.setForeground(java.awt.Color.white);
+        jLabel22.setText("Total Income Lifetime");
+
+        incomeLifetime1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        incomeLifetime1.setForeground(java.awt.Color.white);
+        incomeLifetime1.setText("₹ 15492");
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(76, 76, 76)
+                        .addComponent(jLabel22))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(94, 94, 94)
+                        .addComponent(incomeLifetime1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(75, Short.MAX_VALUE))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel22)
+                .addGap(37, 37, 37)
+                .addComponent(incomeLifetime1)
+                .addContainerGap(55, Short.MAX_VALUE))
+        );
+
+        jPanel9.setBackground(new java.awt.Color(76, 80, 82));
+        jPanel9.setPreferredSize(new java.awt.Dimension(300, 150));
+
+        jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel23.setForeground(java.awt.Color.white);
+        jLabel23.setText("Total Tiffins Sold Lifetime");
+
+        tiffinSoldLifetime1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        tiffinSoldLifetime1.setForeground(java.awt.Color.white);
+        tiffinSoldLifetime1.setText("77");
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap(64, Short.MAX_VALUE)
+                .addComponent(jLabel23)
+                .addGap(61, 61, 61))
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(125, 125, 125)
+                .addComponent(tiffinSoldLifetime1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel23)
+                .addGap(40, 40, 40)
+                .addComponent(tiffinSoldLifetime1)
+                .addContainerGap(52, Short.MAX_VALUE))
+        );
+
+        jPanel10.setBackground(new java.awt.Color(76, 80, 82));
+        jPanel10.setPreferredSize(new java.awt.Dimension(300, 150));
+
+        jLabel24.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel24.setForeground(java.awt.Color.white);
+        jLabel24.setText("Average Rating Lifetime");
+
+        avgRatingLifetime1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        avgRatingLifetime1.setForeground(java.awt.Color.white);
+        avgRatingLifetime1.setText("4.5");
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGap(68, 68, 68)
+                        .addComponent(jLabel24))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGap(129, 129, 129)
+                        .addComponent(avgRatingLifetime1)))
+                .addContainerGap(67, Short.MAX_VALUE))
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel24)
+                .addGap(37, 37, 37)
+                .addComponent(avgRatingLifetime1)
+                .addContainerGap(55, Short.MAX_VALUE))
+        );
+
+        jPanel11.setBackground(new java.awt.Color(76, 80, 82));
+        jPanel11.setPreferredSize(new java.awt.Dimension(250, 150));
+
+        jLabel25.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel25.setForeground(java.awt.Color.white);
+        jLabel25.setText("Total Income Today");
+
+        incomeToday1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        incomeToday1.setForeground(java.awt.Color.white);
+        incomeToday1.setText("₹ 1800");
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addGap(75, 75, 75)
+                        .addComponent(jLabel25))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addGap(91, 91, 91)
+                        .addComponent(incomeToday1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(89, Short.MAX_VALUE))
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel25)
+                .addGap(37, 37, 37)
+                .addComponent(incomeToday1)
+                .addContainerGap(55, Short.MAX_VALUE))
+        );
+
+        jPanel12.setBackground(new java.awt.Color(76, 80, 82));
+        jPanel12.setPreferredSize(new java.awt.Dimension(250, 150));
+
+        jLabel26.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel26.setForeground(java.awt.Color.white);
+        jLabel26.setText("Total Tiffins Sold Today");
+
+        tiffinSoldToday1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        tiffinSoldToday1.setForeground(java.awt.Color.white);
+        tiffinSoldToday1.setText("09");
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
+                .addContainerGap(72, Short.MAX_VALUE)
+                .addComponent(jLabel26)
+                .addGap(66, 66, 66))
+            .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel12Layout.createSequentialGroup()
+                    .addGap(128, 128, 128)
+                    .addComponent(tiffinSoldToday1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(129, Short.MAX_VALUE)))
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel26)
+                .addContainerGap(124, Short.MAX_VALUE))
+            .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel12Layout.createSequentialGroup()
+                    .addGap(59, 59, 59)
+                    .addComponent(tiffinSoldToday1)
+                    .addContainerGap(59, Short.MAX_VALUE)))
+        );
+
+        jPanel13.setBackground(new java.awt.Color(76, 80, 82));
+        jPanel13.setPreferredSize(new java.awt.Dimension(250, 150));
+
+        jLabel27.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel27.setForeground(java.awt.Color.white);
+        jLabel27.setText("Average Rating Today");
+
+        avgRatingToday1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        avgRatingToday1.setForeground(java.awt.Color.white);
+        avgRatingToday1.setText("3.8");
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addGap(74, 74, 74)
+                .addComponent(jLabel27)
+                .addContainerGap(74, Short.MAX_VALUE))
+            .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel13Layout.createSequentialGroup()
+                    .addGap(133, 133, 133)
+                    .addComponent(avgRatingToday1)
+                    .addContainerGap(133, Short.MAX_VALUE)))
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel27)
+                .addContainerGap(124, Short.MAX_VALUE))
+            .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel13Layout.createSequentialGroup()
+                    .addGap(59, 59, 59)
+                    .addComponent(avgRatingToday1)
+                    .addContainerGap(59, Short.MAX_VALUE)))
+        );
 
         javax.swing.GroupLayout homePanelLayout = new javax.swing.GroupLayout(homePanel);
         homePanel.setLayout(homePanelLayout);
         homePanelLayout.setHorizontalGroup(
             homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(homePanelLayout.createSequentialGroup()
-                .addGap(128, 128, 128)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(840, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homePanelLayout.createSequentialGroup()
+                .addContainerGap(76, Short.MAX_VALUE)
+                .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(noOfTiffins, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(homePanelLayout.createSequentialGroup()
+                        .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(42, 42, 42)
+                        .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(55, 55, 55)
+                        .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(127, 127, 127))
         );
         homePanelLayout.setVerticalGroup(
             homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(homePanelLayout.createSequentialGroup()
-                .addGap(97, 97, 97)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(385, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE)
+                .addComponent(noOfTiffins)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(64, 64, 64)
+                .addGroup(homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(92, 92, 92))
         );
 
         mainPanel.add(homePanel, "card2");
 
         tiffinPanel.setBackground(new java.awt.Color(23, 23, 29));
+        tiffinPanel.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                tiffinPanelAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        tiffinPanel.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                tiffinPanelComponentShown(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setForeground(java.awt.Color.white);
@@ -417,23 +692,144 @@ public class adminDashboard extends javax.swing.JFrame {
 
         mainPanel.add(tiffinPanel, "card3");
 
-        jLabel3.setText("ORDERS> SHOW ORDERS BOOKED AND SHIT IDK ASK ATHARVA I FORGOT");
+        ordersPanel.setBackground(new java.awt.Color(23, 23, 29));
+        ordersPanel.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                ordersPanelAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+
+        orderTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Name", "Roti", "Sabji", "Rice", "Dal", "Pappad", "Sweet", "Price"
+            }
+        ));
+        orderTable.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                orderTableComponentAdded(evt);
+            }
+        });
+        orderTable.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                orderTableAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        orderTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                orderTableMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(orderTable);
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setForeground(java.awt.Color.white);
+        jLabel3.setText("Orders Dashboard");
+
+        curdOrders.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        curdOrders.setForeground(java.awt.Color.white);
+        curdOrders.setText("CURD ORDERS");
+
+        orderSubmitBtn.setBackground(new java.awt.Color(23, 23, 29));
+        orderSubmitBtn.setForeground(new java.awt.Color(255, 255, 255));
+        orderSubmitBtn.setText("Submit");
+        orderSubmitBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        orderSubmitBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                orderSubmitBtnMouseClicked(evt);
+            }
+        });
+        orderSubmitBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                orderSubmitBtnActionPerformed(evt);
+            }
+        });
+
+        orderDeleteBtn.setBackground(java.awt.Color.red);
+        orderDeleteBtn.setForeground(java.awt.Color.white);
+        orderDeleteBtn.setText("Delete");
+        orderDeleteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                orderDeleteBtnActionPerformed(evt);
+            }
+        });
+
+        idLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        idLabel.setForeground(java.awt.Color.white);
+        idLabel.setText("Order ID");
+
+        statusLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        statusLabel1.setForeground(java.awt.Color.white);
+        statusLabel1.setText("Status");
+
+        orderIdInput.setBackground(java.awt.Color.white);
+        orderIdInput.setForeground(new java.awt.Color(23, 23, 29));
+
+        orderComboBox.setBackground(java.awt.Color.white);
+        orderComboBox.setForeground(new java.awt.Color(23, 23, 29));
+        orderComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Order Placed", "Accepted", "Cooking", "Dispatched", "Delivered", "Rejected" }));
 
         javax.swing.GroupLayout ordersPanelLayout = new javax.swing.GroupLayout(ordersPanel);
         ordersPanel.setLayout(ordersPanelLayout);
         ordersPanelLayout.setHorizontalGroup(
             ordersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ordersPanelLayout.createSequentialGroup()
-                .addGap(128, 128, 128)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(624, Short.MAX_VALUE))
+                .addGap(101, 101, 101)
+                .addGroup(ordersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(idLabel)
+                    .addComponent(orderIdInput, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addGroup(ordersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(statusLabel1)
+                    .addComponent(orderSubmitBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(orderDeleteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+                    .addComponent(orderComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(879, Short.MAX_VALUE))
+            .addGroup(ordersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(ordersPanelLayout.createSequentialGroup()
+                    .addGap(97, 97, 97)
+                    .addComponent(curdOrders)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 379, Short.MAX_VALUE)
+                    .addGroup(ordersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel3)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(97, 97, 97)))
         );
         ordersPanelLayout.setVerticalGroup(
             ordersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ordersPanelLayout.createSequentialGroup()
-                .addGap(97, 97, 97)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(385, Short.MAX_VALUE))
+                .addGap(179, 179, 179)
+                .addGroup(ordersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(idLabel)
+                    .addComponent(statusLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(ordersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(orderIdInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(orderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addComponent(orderSubmitBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(orderDeleteBtn)
+                .addContainerGap(234, Short.MAX_VALUE))
+            .addGroup(ordersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(ordersPanelLayout.createSequentialGroup()
+                    .addGap(13, 13, 13)
+                    .addGroup(ordersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(curdOrders, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(12, 12, 12)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(14, Short.MAX_VALUE)))
         );
 
         mainPanel.add(ordersPanel, "card4");
@@ -494,6 +890,33 @@ public class adminDashboard extends javax.swing.JFrame {
     private void userSignInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userSignInButtonActionPerformed
         // TODO add your handling code here:
 
+        Tiffins selectedTiffin = new Tiffins();
+
+        selectedTiffin.id = Integer.parseInt(idInput.getText());
+        selectedTiffin.name = nameInput.getText();
+
+        selectedTiffin.roti = Integer.parseInt(rotiInput.getText());
+        selectedTiffin.sabji = sabjiInput.getText();
+        selectedTiffin.rice = Integer.parseInt(riceInput.getText());
+        selectedTiffin.dal = dalInput.getText();
+        selectedTiffin.pappad = Integer.parseInt(papadInput.getText());
+        selectedTiffin.sweet = sweetInput.getText();
+        selectedTiffin.price = Integer.parseInt(priceInput.getText());
+
+        int result = backend.updateTiffin(selectedTiffin);
+        if (result == 2) {
+            JOptionPane.showMessageDialog(null, "Tiffin Didn't Exsist. Created New Tiffin.",
+                    "INFORMATION",
+                    JOptionPane.INFORMATION_MESSAGE);
+        } else if (result == 0) {
+            JOptionPane.showMessageDialog(null, "Tiffin Could Not Be Updated.",
+                    "ERROR",
+                    JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Tiffin Updated Successfully.",
+                    "INFORMATION",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_userSignInButtonActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -534,6 +957,91 @@ public class adminDashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_deleteBtnActionPerformed
 
+    private void homePanelAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_homePanelAncestorAdded
+        // TODO add your handling code here:
+
+        noOfTiffins.setText("Currently Serving " + backend.getTiffinCount() + " types of Tiffins");
+    }//GEN-LAST:event_homePanelAncestorAdded
+
+    private void tiffinPanelAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tiffinPanelAncestorAdded
+        // TODO add your handling code here:
+        tiffins = backend.getTiffins();
+        model.setColumnIdentifiers(new Object[]{"ID", "NAME", "Roti", "Sabji", "Rice", "Dal", "Pappad", "Sweet", "Price"});
+        jTable1.setModel(model);
+        model.setRowCount(0);
+
+        for (int i = 0; i < tiffins.size(); i++) {
+            model.addRow(new Object[]{tiffins.get(i).id, tiffins.get(i).name, tiffins.get(i).roti, tiffins.get(i).sabji, tiffins.get(i).rice,
+                tiffins.get(i).dal, tiffins.get(i).pappad, tiffins.get(i).sweet, tiffins.get(i).price});
+        }
+    }//GEN-LAST:event_tiffinPanelAncestorAdded
+
+    private void tiffinPanelComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_tiffinPanelComponentShown
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_tiffinPanelComponentShown
+
+    private void orderTableComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_orderTableComponentAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_orderTableComponentAdded
+
+    private void orderTableAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_orderTableAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_orderTableAncestorAdded
+
+    private void orderTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_orderTableMouseClicked
+        // TODO add your handling code here:
+
+        model = (DefaultTableModel) orderTable.getModel();
+        Vector row = model.getDataVector().elementAt(orderTable.getSelectedRow());
+
+        orderIdInput.setText(row.get(0).toString());
+        orderComboBox.setSelectedItem(row.get(4).toString());
+
+    }//GEN-LAST:event_orderTableMouseClicked
+
+    private void orderSubmitBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_orderSubmitBtnMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_orderSubmitBtnMouseClicked
+
+    private void orderSubmitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderSubmitBtnActionPerformed
+        // TODO add your handling code here:
+        int result = backend.setOrderStatus(Integer.parseInt(orderIdInput.getText()), String.valueOf(orderComboBox.getSelectedItem()));
+        if (result == 0) {
+            JOptionPane.showMessageDialog(null, "Order Does Not Exsist.",
+                    "INFORMATION",
+                    JOptionPane.INFORMATION_MESSAGE);
+        } else if (result == -1) {
+            JOptionPane.showMessageDialog(null, "Order Could Not Be Updated.",
+                    "ERROR",
+                    JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Order Updated Successfully.",
+                    "INFORMATION",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+
+    }//GEN-LAST:event_orderSubmitBtnActionPerformed
+
+    private void orderDeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderDeleteBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_orderDeleteBtnActionPerformed
+
+    private void ordersPanelAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_ordersPanelAncestorAdded
+        // TODO add your handling code here:
+
+        orders = backend.getOrders();
+        model.setColumnIdentifiers(new Object[]{"Order ID", "User ID", "Tiffin ID", "Tiffin Price", "Status", "Rating"});
+        orderTable.setModel(model);
+        model.setRowCount(0);
+
+        for (int i = 0; i < orders.size(); i++) {
+            model.addRow(new Object[]{orders.get(i).OrderId, orders.get(i).userId, orders.get(i).tiffinId,
+                orders.get(i).tiffinPrice, orders.get(i).Status,
+                orders.get(i).rating});
+        }
+    }//GEN-LAST:event_ordersPanelAncestorAdded
+
     /**
      * @param args the command line arguments
      */
@@ -570,18 +1078,29 @@ public class adminDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel avgRatingLifetime1;
+    private javax.swing.JLabel avgRatingToday1;
+    private javax.swing.JLabel curdOrders;
     private javax.swing.JTextField dalInput;
     private javax.swing.JButton deleteBtn;
     private javax.swing.JButton homeBtn;
     private javax.swing.JPanel homePanel;
     private javax.swing.JTextField idInput;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel idLabel;
+    private javax.swing.JLabel incomeLifetime1;
+    private javax.swing.JLabel incomeToday1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -589,12 +1108,25 @@ public class adminDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JTextField nameInput;
     private javax.swing.JPanel navbar;
+    private javax.swing.JLabel noOfTiffins;
     private javax.swing.JButton orderBtn;
+    private javax.swing.JComboBox<String> orderComboBox;
+    private javax.swing.JButton orderDeleteBtn;
+    private javax.swing.JTextField orderIdInput;
+    private javax.swing.JButton orderSubmitBtn;
+    private javax.swing.JTable orderTable;
     private javax.swing.JPanel ordersPanel;
     private javax.swing.JTextField papadInput;
     private javax.swing.JTextField priceInput;
@@ -602,8 +1134,11 @@ public class adminDashboard extends javax.swing.JFrame {
     private javax.swing.JTextField riceInput;
     private javax.swing.JTextField rotiInput;
     private javax.swing.JTextField sabjiInput;
+    private javax.swing.JLabel statusLabel1;
     private javax.swing.JTextField sweetInput;
     private javax.swing.JPanel tiffinPanel;
+    private javax.swing.JLabel tiffinSoldLifetime1;
+    private javax.swing.JLabel tiffinSoldToday1;
     private javax.swing.JButton tiffinsBtn;
     private javax.swing.JButton userSignInButton;
     // End of variables declaration//GEN-END:variables
