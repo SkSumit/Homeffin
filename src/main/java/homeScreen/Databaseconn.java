@@ -45,16 +45,16 @@ public class Databaseconn {
     }
 
     public int postSignUpUser(String firstName, String lastName,
-            String mobile, String gender, String email, String password, String confirmedPassword) {
+            String mobile, String gender, String email, String password, String confirmedPassword , String Dp) {
 
         int user = 0;
 
         String POST_USER_DATA
-                = "insert into " + databaseName + ".users (userFirstName, userLastName ,\n"
-                + "  userEmail ," + "  userGender ," + "  userPhoneNumber," + "  userPassword ) "
+                = "insert into " + databaseName + ".users (userFirstName, userLastName ,"
+                + " userEmail ,  userGender ,userPhoneNumber,  userPassword, profilePic  ) "
                 + "values ("
                 + "'" + firstName + "' , '" + lastName + "' , '" + email + "' , '" + gender + "' , "
-                + "'" + mobile + "', SHA('" + password + "'))";
+                + "'" + mobile + "', SHA('" + password + "'),'"+Dp+"')";
 
         try {
             System.out.println(POST_USER_DATA);
@@ -71,7 +71,7 @@ public class Databaseconn {
     public ArrayList<String> getSignInUser(String email, String password) {
 
         ArrayList<String> user = new ArrayList<String>();
-        final String GET_SIGN_IN_USER = "select userId, userFirstName from "
+        final String GET_SIGN_IN_USER = "select userId, userFirstName ,profilePic from "
                 + databaseName + ".users where userEmail = '" + email + "' and userPassword = "
                 + " SHA('" + password + "')";
 
@@ -84,6 +84,7 @@ public class Databaseconn {
             }
             user.add(resultSet.getString(1));
             user.add(resultSet.getString(2));
+            user.add(resultSet.getString(3));
         } catch (SQLException ex) {
             Logger.getLogger(Databaseconn.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -114,7 +115,7 @@ public class Databaseconn {
         return user;
     }
 
-    public ArrayList<ArrayList<String>> getMenu() {
+   /* public ArrayList<ArrayList<String>> getMenu() {
         final String GET_MENU = "Select * from tiffins";
         int rowcount = 0;
         ArrayList<ArrayList<String>> menu = new ArrayList<ArrayList<String>>();
@@ -132,7 +133,7 @@ public class Databaseconn {
             Logger.getLogger(Databaseconn.class.getName()).log(Level.SEVERE, null, ex);
         }
         return menu;
-    }
+    }*/
 
     public int getRows() {
         final String GET_NO_ROWS = "select count(*) from tiffins";
@@ -204,6 +205,7 @@ public class Databaseconn {
             return result;
         } catch (SQLException ex) {
             Logger.getLogger(Databaseconn.class.getName()).log(Level.SEVERE, null, ex);
+            return 0;
         }
         return result;
     }
@@ -244,6 +246,26 @@ public class Databaseconn {
         return result;
     }
 
+    
+    public int orderTiffin(ArrayList<Order> menu){
+        int uid = menu.get(0).uid;
+        int tid = menu.get(0).tid;
+        int price = menu.get(0).price;
+        float rating = menu.get(0).rating;
+        String status = menu.get(0).status;
+        int result = 0;
+        
+        final String PLACE_ORDER = "Insert into " + databaseName + ".orders (userId , tiffinId , tiffinPrice , status ,rating)"+
+                "values ( '" + uid + "' , '"+ tid +"' , '"+ price +"' , '"+ status +"' , '"+ rating +"')";
+        try {
+            result = ExecuteUpdateOperation(PLACE_ORDER);
+        } catch (SQLException ex) {
+            Logger.getLogger(Databaseconn.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+
+
     public int setOrderStatus(int orderId, String orderStatus) {
         final String QUERY = "update orders set status = ? where orderId = ?";
         int result = 0;
@@ -259,5 +281,6 @@ public class Databaseconn {
         }
         return result;
     }
+
 
 }

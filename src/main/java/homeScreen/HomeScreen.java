@@ -263,9 +263,11 @@ public class HomeScreen extends javax.swing.JFrame {
         System.out.println("HOMESCREEN" + result);
         if (result.size() > 0) {
             setVisible(false);
+            String id = result.get(0);
             String name = result.get(1);
+            String Dp = result.get(2);
             System.out.println(name);
-            new Menu(name.toString()).setVisible(true);
+            new Menu(name.toString() , Dp.toString() , id.toString()).setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Login Information is Incorrect.");
         }

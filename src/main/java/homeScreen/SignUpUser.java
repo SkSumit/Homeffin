@@ -5,6 +5,12 @@
  */
 package homeScreen;
 
+import com.cloudinary.*;
+import java.io.File;
+import javax.swing.JFileChooser;
+import com.cloudinary.utils.ObjectUtils;
+import java.util.Map;
+
 /**
  *
  * @author Sumit Kolpekwar
@@ -15,11 +21,21 @@ public class SignUpUser extends javax.swing.JFrame {
      * Creates new form SignUpUser
      */
     private Backend backend;
+    private Cloudinary cloudinary;
+    private Map config;
+    private Map uploaderMap;
+    private File selectedFile;
 
     public SignUpUser() {
         initComponents();
         backend = new Backend();
+        config = ObjectUtils.asMap(
+                        "cloud_name", "dpwspeuft",
+                        "api_key", "653775661217294",
+                        "api_secret", "HIXWv-ESOifGXQHgx6skUvmLdv0");
+        cloudinary = new Cloudinary(config);
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -74,6 +90,8 @@ public class SignUpUser extends javax.swing.JFrame {
         emailInput = new javax.swing.JTextPane();
         confirmedPasswordText = new javax.swing.JLabel();
         confirmedPasswordInput = new javax.swing.JPasswordField();
+        confirmedPasswordText1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         HomeffinsSubtext2 = new javax.swing.JLabel();
         goBackBtn = new javax.swing.JButton();
 
@@ -387,6 +405,17 @@ public class SignUpUser extends javax.swing.JFrame {
             }
         });
 
+        confirmedPasswordText1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        confirmedPasswordText1.setForeground(new java.awt.Color(255, 255, 255));
+        confirmedPasswordText1.setText("Upload Profile Pic:-");
+
+        jButton1.setText("Choose File");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -417,7 +446,11 @@ public class SignUpUser extends javax.swing.JFrame {
                                 .addComponent(confirmedPasswordInput, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel7Layout.createSequentialGroup()
                                 .addGap(84, 84, 84)
-                                .addComponent(signUpText)))))
+                                .addComponent(signUpText))
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addComponent(confirmedPasswordText1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1)))))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
@@ -453,9 +486,13 @@ public class SignUpUser extends javax.swing.JFrame {
                 .addComponent(confirmedPasswordText)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(confirmedPasswordInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(confirmedPasswordText1)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(userSignUp)
-                .addGap(101, 101, 101)
+                .addGap(85, 85, 85)
                 .addComponent(jLabel1)
                 .addContainerGap(35, Short.MAX_VALUE))
         );
@@ -579,12 +616,18 @@ public class SignUpUser extends javax.swing.JFrame {
 
     private void userSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userSignUpActionPerformed
         // TODO add your handling code here:
+        String Dp = null;
+        try {
+            uploaderMap = cloudinary.uploader().upload(selectedFile.getAbsoluteFile(), ObjectUtils.emptyMap());
+                Dp =  (String) uploaderMap.get("url");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
         int result = backend.Register(firstNameInput.getText(),
                 lastNameInput.getText(), mobileInput.getText(),
                 genderComboBox.getSelectedItem().toString(), emailInput.getText(),
-                passwordInput.getText(), confirmedPasswordInput.getText()
+                passwordInput.getText(), confirmedPasswordInput.getText() , Dp
         );
-        System.out.println("the result" + result);
     }//GEN-LAST:event_userSignUpActionPerformed
 
     private void jLabel1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jLabel1FocusGained
@@ -604,6 +647,15 @@ public class SignUpUser extends javax.swing.JFrame {
         dispose();
         new HomeScreen().setVisible(true);
     }//GEN-LAST:event_goBackBtnActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+        int result = fileChooser.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            selectedFile = fileChooser.getSelectedFile(); 
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -649,6 +701,7 @@ public class SignUpUser extends javax.swing.JFrame {
     private javax.swing.JButton adminSignInButton;
     private javax.swing.JPasswordField confirmedPasswordInput;
     private javax.swing.JLabel confirmedPasswordText;
+    private javax.swing.JLabel confirmedPasswordText1;
     private javax.swing.JLabel dhaaText;
     private javax.swing.JTextPane emailInput;
     private javax.swing.JTextPane emailInput1;
@@ -661,6 +714,7 @@ public class SignUpUser extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> genderComboBox;
     private javax.swing.JLabel genderText;
     private javax.swing.JButton goBackBtn;
+    private javax.swing.JButton jButton1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel9;
