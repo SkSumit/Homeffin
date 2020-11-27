@@ -2,24 +2,24 @@ package homeScreen;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-//Class Creation
 
 public class Databaseconn {
 
     private Connection conn;
     private Statement statement;
+    private PreparedStatement ps;
     private String connectionUsername = "root";
     private String connectionPassword = "";
     private String databaseName = "homeffins";
 
     //SQL QUERIES
-    //private static final String GET_ALL_USERS = "select * from restro.custdata";
     //Constructor and Innitialization
     public Databaseconn() {
 
@@ -162,18 +162,102 @@ public class Databaseconn {
         return result;
     }
 
-    public int deleteTiffins(int tiffinId) {
-        final String DELETE_TIFFIN = "delete from tiffins where tiffinId = " + tiffinId;
-        System.out.println(DELETE_TIFFIN);
+    public int deleteTiffins(int tiffinid) {
+
+        final String DELETE_TIFFIN = "delete from tiffins where tiffinId = ?";
         int result = 0;
         try {
-            result = ExecuteUpdateOperation(DELETE_TIFFIN);
+            ps = conn.prepareStatement(DELETE_TIFFIN);
+            ps.setInt(1, tiffinid);
+            result = ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(Databaseconn.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println(result);
+        return result;
+
+    }
+
+    public int updateTiffins(Tiffins tiffin) {
+        final String UPDATE_TIFFINS = "update tiffins set tiffinId = ?,"
+                + "tiffinName = ? , tiffinRoti = ?, tiffinSabji = ?, "
+                + "tiffinRice = ?, tiffinDal = ?, tiffinPappad = ?, tiffinSweet = ?, tiffinPrice = ? where tiffinId = ?";
+
+        int result = 0;
+        try {
+
+            ps = conn.prepareStatement(UPDATE_TIFFINS);
+            ps.setInt(1, tiffin.id);
+            ps.setString(2, tiffin.name);
+            ps.setInt(3, tiffin.roti);
+            ps.setString(4, tiffin.sabji);
+            ps.setInt(5, tiffin.rice);
+            ps.setString(6, tiffin.dal);
+            ps.setInt(7, tiffin.pappad);
+            ps.setString(8, tiffin.sweet);
+            ps.setInt(9, tiffin.price);
+            ps.setInt(10, tiffin.id);
+
+            result = ps.executeUpdate();
             System.out.println(result);
+
+            return result;
+        } catch (SQLException ex) {
+            Logger.getLogger(Databaseconn.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+
+    public int createTiffins(Tiffins tiffin) {
+
+        final String QUERY = "insert into tiffins value(?,?,?,?,?,?,?,?,?)";
+        int result = 0;
+        try {
+            ps = conn.prepareStatement(QUERY);
+            ps.setInt(1, tiffin.id);
+            ps.setString(2, tiffin.name);
+            ps.setInt(3, tiffin.roti);
+            ps.setString(4, tiffin.sabji);
+            ps.setInt(5, tiffin.rice);
+            ps.setString(6, tiffin.dal);
+            ps.setInt(7, tiffin.pappad);
+            ps.setString(8, tiffin.sweet);
+            ps.setInt(9, tiffin.price);
+            result = ps.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Databaseconn.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return result;
+    }
+
+    public ResultSet getOrders() {
+        final String QUERY = "Select * from orders";
+        ResultSet result = null;
+        try {
+            result = ExecuteOperation(QUERY);
 
         } catch (SQLException ex) {
             Logger.getLogger(Databaseconn.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
-
     }
+
+    public int setOrderStatus(int orderId, String orderStatus) {
+        final String QUERY = "update orders set status = ? where orderId = ?";
+        int result = 0;
+        try {
+
+            ps = conn.prepareStatement(QUERY);
+            ps.setString(1, orderStatus);
+            ps.setInt(2, orderId);
+            result = ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(Databaseconn.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
+        }
+        return result;
+    }
+
 }
