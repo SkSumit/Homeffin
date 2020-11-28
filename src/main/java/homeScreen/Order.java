@@ -10,7 +10,7 @@ package homeScreen;
  * @author Kulkarni
  */
 public class Order {
-    public int uid , tid , price;
+    public int uid , tid , price , oid;
     public String status;
     public float rating;
 }

@@ -202,10 +202,9 @@ public class Databaseconn {
             result = ps.executeUpdate();
             System.out.println(result);
 
-            return result;
         } catch (SQLException ex) {
             Logger.getLogger(Databaseconn.class.getName()).log(Level.SEVERE, null, ex);
-            return 0;
+
         }
         return result;
     }
@@ -252,11 +251,10 @@ public class Databaseconn {
         int tid = menu.get(0).tid;
         int price = menu.get(0).price;
         float rating = menu.get(0).rating;
-        String status = menu.get(0).status;
         int result = 0;
         
-        final String PLACE_ORDER = "Insert into " + databaseName + ".orders (userId , tiffinId , tiffinPrice , status ,rating)"+
-                "values ( '" + uid + "' , '"+ tid +"' , '"+ price +"' , '"+ status +"' , '"+ rating +"')";
+        final String PLACE_ORDER = "Insert into " + databaseName + ".orders (userId , tiffinId , tiffinPrice ,rating)"+
+                "values ( '" + uid + "' , '"+ tid +"' , '"+ price +"' , '"+ rating +"')";
         try {
             result = ExecuteUpdateOperation(PLACE_ORDER);
         } catch (SQLException ex) {

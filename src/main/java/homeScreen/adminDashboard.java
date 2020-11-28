@@ -24,7 +24,7 @@ public class adminDashboard extends javax.swing.JFrame {
     private Databaseconn databaseconn;
     private Backend backend;
     private ArrayList<Tiffins> tiffins;
-    private ArrayList<Orders> orders;
+    private ArrayList<Order> orders;
     private DefaultTableModel model = new DefaultTableModel();
 
     public adminDashboard() {
@@ -1036,8 +1036,8 @@ public class adminDashboard extends javax.swing.JFrame {
         model.setRowCount(0);
 
         for (int i = 0; i < orders.size(); i++) {
-            model.addRow(new Object[]{orders.get(i).OrderId, orders.get(i).userId, orders.get(i).tiffinId,
-                orders.get(i).tiffinPrice, orders.get(i).Status,
+            model.addRow(new Object[]{orders.get(i).oid, orders.get(i).uid, orders.get(i).tid,
+                orders.get(i).price, orders.get(i).status,
                 orders.get(i).rating});
         }
     }//GEN-LAST:event_ordersPanelAncestorAdded
