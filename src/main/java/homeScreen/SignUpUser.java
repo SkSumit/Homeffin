@@ -6,10 +6,10 @@
 package homeScreen;
 
 import com.cloudinary.*;
-import java.io.File;
-import javax.swing.JFileChooser;
 import com.cloudinary.utils.ObjectUtils;
+import java.io.File;
 import java.util.Map;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -30,12 +30,11 @@ public class SignUpUser extends javax.swing.JFrame {
         initComponents();
         backend = new Backend();
         config = ObjectUtils.asMap(
-                        "cloud_name", "dpwspeuft",
-                        "api_key", "653775661217294",
-                        "api_secret", "HIXWv-ESOifGXQHgx6skUvmLdv0");
+                "cloud_name", "dpwspeuft",
+                "api_key", "653775661217294",
+                "api_secret", "HIXWv-ESOifGXQHgx6skUvmLdv0");
         cloudinary = new Cloudinary(config);
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -562,22 +561,7 @@ public class SignUpUser extends javax.swing.JFrame {
     }//GEN-LAST:event_passwordInput1ActionPerformed
 
     private void userSignInButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userSignInButtonMouseClicked
-//        System.out.println(emailInput.getText());
-//        char[] input = passwordInput.getPassword();
-//        char[] correctPassword = {'h', 'e', 'y'};
-//        String name = "Hey";
-//        System.out.println(correctPassword);
-//        String email = "hey@gmail.com";
-//        if (emailInput.getText().equals(email)) {
-//            if (Arrays.equals(input, correctPassword)) {
-//                System.out.println("Welcome");
-//                setVisible(false);
-//                new Menu(name).setVisible(true);
-//            }
-//        } else {
-//            System.out.println("Not Welcome");
-//            jLabel1.setText("Wrong Email or Password");
-//        }
+
     }//GEN-LAST:event_userSignInButtonMouseClicked
 
     private void userSignInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userSignInButtonActionPerformed
@@ -619,14 +603,14 @@ public class SignUpUser extends javax.swing.JFrame {
         String Dp = null;
         try {
             uploaderMap = cloudinary.uploader().upload(selectedFile.getAbsoluteFile(), ObjectUtils.emptyMap());
-                Dp =  (String) uploaderMap.get("url");
+            Dp = (String) uploaderMap.get("url");
         } catch (Exception e) {
             System.out.println(e);
         }
         int result = backend.Register(firstNameInput.getText(),
                 lastNameInput.getText(), mobileInput.getText(),
                 genderComboBox.getSelectedItem().toString(), emailInput.getText(),
-                passwordInput.getText(), confirmedPasswordInput.getText() , Dp
+                passwordInput.getText(), confirmedPasswordInput.getText(), Dp
         );
     }//GEN-LAST:event_userSignUpActionPerformed
 
@@ -653,7 +637,7 @@ public class SignUpUser extends javax.swing.JFrame {
         fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
         int result = fileChooser.showOpenDialog(this);
         if (result == JFileChooser.APPROVE_OPTION) {
-            selectedFile = fileChooser.getSelectedFile(); 
+            selectedFile = fileChooser.getSelectedFile();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

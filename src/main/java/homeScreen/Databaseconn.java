@@ -44,8 +44,66 @@ public class Databaseconn {
         return statement.executeUpdate(query);//For insert update delete
     }
 
+    public ResultSet getAllUsers() {
+        String Query = "select * from users";
+        ResultSet result = null;
+        try {
+            result = ExecuteOperation(Query);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Databaseconn.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+
+    }
+
+    public int deleteUser(int userid) throws SQLException {
+
+        final String QUERY = "delete from users where userId = ?";
+        int result = 0;
+        try {
+            ps = conn.prepareStatement(QUERY);
+            ps.setInt(1, userid);
+            result = ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(Databaseconn.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
+
+        return result;
+
+    }
+
+    public ResultSet getUserOrderCount(int userId) {
+        String Query = "select count(*) from orders where userId = " + userId;
+
+        ResultSet result = null;
+        try {
+            result = ExecuteOperation(Query);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Databaseconn.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+
+    }
+
+    public ResultSet getUserTotalBill(int userId) {
+        String Query = "select sum(tiffinPrice) from orders where userId = " + userId + " and status != 'Rejected'";
+
+        ResultSet result = null;
+        try {
+            result = ExecuteOperation(Query);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Databaseconn.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+
+    }
+
     public int postSignUpUser(String firstName, String lastName,
-            String mobile, String gender, String email, String password, String confirmedPassword , String Dp) {
+            String mobile, String gender, String email, String password, String confirmedPassword, String Dp) {
 
         int user = 0;
 
@@ -54,7 +112,7 @@ public class Databaseconn {
                 + " userEmail ,  userGender ,userPhoneNumber,  userPassword, profilePic  ) "
                 + "values ("
                 + "'" + firstName + "' , '" + lastName + "' , '" + email + "' , '" + gender + "' , "
-                + "'" + mobile + "', SHA('" + password + "'),'"+Dp+"')";
+                + "'" + mobile + "', SHA('" + password + "'),'" + Dp + "')";
 
         try {
             System.out.println(POST_USER_DATA);
@@ -114,26 +172,6 @@ public class Databaseconn {
 
         return user;
     }
-
-   /* public ArrayList<ArrayList<String>> getMenu() {
-        final String GET_MENU = "Select * from tiffins";
-        int rowcount = 0;
-        ArrayList<ArrayList<String>> menu = new ArrayList<ArrayList<String>>();
-        try {
-            ResultSet result = ExecuteOperation(GET_MENU);
-            while (result.next()) {
-                ArrayList<String> premenu = new ArrayList<String>();
-                for (int i = 1; i <= result.getMetaData().getColumnCount(); i++) {
-                    premenu.add(result.getString(i));
-                }
-                menu.add(rowcount, premenu);
-                rowcount++;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Databaseconn.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return menu;
-    }*/
 
     public int getRows() {
         final String GET_NO_ROWS = "select count(*) from tiffins";
@@ -200,7 +238,6 @@ public class Databaseconn {
             ps.setInt(10, tiffin.id);
 
             result = ps.executeUpdate();
-            System.out.println(result);
 
         } catch (SQLException ex) {
             Logger.getLogger(Databaseconn.class.getName()).log(Level.SEVERE, null, ex);
@@ -245,16 +282,17 @@ public class Databaseconn {
         return result;
     }
 
-    
-    public int orderTiffin(ArrayList<Order> menu){
+    public int orderTiffin(ArrayList<Order> menu) {
         int uid = menu.get(0).uid;
         int tid = menu.get(0).tid;
         int price = menu.get(0).price;
         float rating = menu.get(0).rating;
         int result = 0;
+
         
         final String PLACE_ORDER = "Insert into " + databaseName + ".orders (userId , tiffinId , tiffinPrice ,rating)"+
                 "values ( '" + uid + "' , '"+ tid +"' , '"+ price +"' , '"+ rating +"')";
+
         try {
             result = ExecuteUpdateOperation(PLACE_ORDER);
         } catch (SQLException ex) {
@@ -262,7 +300,6 @@ public class Databaseconn {
         }
         return result;
     }
-
 
     public int setOrderStatus(int orderId, String orderStatus) {
         final String QUERY = "update orders set status = ? where orderId = ?";
@@ -280,5 +317,22 @@ public class Databaseconn {
         return result;
     }
 
+    public int deleteOrder(int orderId) throws SQLException {
+
+        final String DELETE_TIFFIN = "delete from orders where orderId = ?";
+        int result = 0;
+        try {
+            ps = conn.prepareStatement(DELETE_TIFFIN);
+            ps.setInt(1, orderId);
+            result = ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(Databaseconn.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+
+        }
+
+        return result;
+
+    }
 
 }
