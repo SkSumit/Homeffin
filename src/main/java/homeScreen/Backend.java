@@ -125,19 +125,19 @@ public class Backend {
         return numberofTiffins;
     }
 
-    public ArrayList<Orders> getOrders() {
+    public ArrayList<Order> getOrders() {
 
-        ArrayList<Orders> orderList = new ArrayList<Orders>();
+        ArrayList<Order> orderList = new ArrayList<Order>();
         try {
             ResultSet result = databaseconn.getOrders();
             while (result.next()) {
-                Orders order = new Orders();
+                Order order = new Order();
 
-                order.OrderId = result.getInt("orderId");
-                order.userId = result.getInt("userId");
-                order.tiffinId = result.getInt("tiffinId");
-                order.tiffinPrice = result.getInt("tiffinPrice");
-                order.Status = result.getString("status");
+                order.oid = result.getInt("orderId");
+                order.uid = result.getInt("userId");
+                order.tid = result.getInt("tiffinId");
+                order.price = result.getInt("tiffinPrice");
+                order.status = result.getString("status");
                 order.rating = result.getFloat("rating");
 
                 orderList.add(order);
@@ -148,6 +148,31 @@ public class Backend {
         }
 
         return orderList;
+    }
+    
+    public ArrayList<Order> getOrdersHome(int uid){
+        
+        ArrayList<Order> orderList = new ArrayList<Order>();
+        try {
+            ResultSet results =  databaseconn.getOrders();
+            while (results.next()) {
+                if (results.getInt("userId") == uid &&  !"Delivered".equals(results.getString("status")) && !"Rejected".equals(results.getString("status"))) {
+                    Order order = new Order();
+                    order.uid = results.getInt("userId");
+                    order.tid = results.getInt("tiffinId");
+                    order.status = results.getString("status");
+                    order.price = results.getInt("tiffinPrice");
+                    order.oid = results.getInt("orderId");
+                    
+                    orderList.add(order);
+                }
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Backend.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return orderList;
+        
     }
 
     public int setOrderStatus(int orderId, String orderStatus) {
@@ -173,6 +198,8 @@ public class Backend {
         int result = databaseconn.orderTiffin(tiffinList);
         return result;
     }
+    
+
 
     public int deleteOrder(int orderId) throws Exception {
         int result = 0;
