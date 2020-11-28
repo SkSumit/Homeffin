@@ -8,6 +8,8 @@ package homeScreen;
 import java.awt.CardLayout;
 import java.util.ArrayList;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -25,6 +27,7 @@ public class adminDashboard extends javax.swing.JFrame {
     private Backend backend;
     private ArrayList<Tiffins> tiffins;
     private ArrayList<Orders> orders;
+    private ArrayList<Users> users;
     private DefaultTableModel model = new DefaultTableModel();
 
     public adminDashboard() {
@@ -51,6 +54,7 @@ public class adminDashboard extends javax.swing.JFrame {
         homeBtn = new javax.swing.JButton();
         tiffinsBtn = new javax.swing.JButton();
         orderBtn = new javax.swing.JButton();
+        userBtn = new javax.swing.JButton();
         mainPanel = new javax.swing.JPanel();
         homePanel = new javax.swing.JPanel();
         noOfTiffins = new javax.swing.JLabel();
@@ -108,6 +112,14 @@ public class adminDashboard extends javax.swing.JFrame {
         statusLabel1 = new javax.swing.JLabel();
         orderIdInput = new javax.swing.JTextField();
         orderComboBox = new javax.swing.JComboBox<>();
+        usersPanel = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        usersTable = new javax.swing.JTable();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        userIdInput = new javax.swing.JTextField();
+        userDeleteBtn = new javax.swing.JButton();
 
         jLabel4.setText("jLabel4");
 
@@ -141,6 +153,13 @@ public class adminDashboard extends javax.swing.JFrame {
             }
         });
 
+        userBtn.setText("USERS");
+        userBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout navbarLayout = new javax.swing.GroupLayout(navbar);
         navbar.setLayout(navbarLayout);
         navbarLayout.setHorizontalGroup(
@@ -152,6 +171,8 @@ public class adminDashboard extends javax.swing.JFrame {
                 .addComponent(tiffinsBtn)
                 .addGap(18, 18, 18)
                 .addComponent(orderBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(userBtn)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         navbarLayout.setVerticalGroup(
@@ -161,7 +182,8 @@ public class adminDashboard extends javax.swing.JFrame {
                 .addGroup(navbarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tiffinsBtn)
                     .addComponent(homeBtn)
-                    .addComponent(orderBtn))
+                    .addComponent(orderBtn)
+                    .addComponent(userBtn))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -834,6 +856,120 @@ public class adminDashboard extends javax.swing.JFrame {
 
         mainPanel.add(ordersPanel, "card4");
 
+        usersPanel.setBackground(new java.awt.Color(23, 23, 29));
+        usersPanel.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                usersPanelAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        usersPanel.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                usersPanelComponentShown(evt);
+            }
+        });
+
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel15.setForeground(java.awt.Color.white);
+        jLabel15.setText("Users Dashboard");
+
+        usersTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Name", "Roti", "Sabji", "Rice", "Dal", "Pappad", "Sweet", "Price"
+            }
+        ));
+        usersTable.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                usersTableComponentAdded(evt);
+            }
+        });
+        usersTable.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                usersTableAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        usersTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                usersTableMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(usersTable);
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel16.setForeground(java.awt.Color.white);
+        jLabel16.setText("CURD Users");
+
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel17.setForeground(java.awt.Color.white);
+        jLabel17.setText("ID");
+
+        userIdInput.setBackground(java.awt.Color.white);
+        userIdInput.setForeground(new java.awt.Color(23, 23, 29));
+
+        userDeleteBtn.setBackground(java.awt.Color.red);
+        userDeleteBtn.setForeground(java.awt.Color.white);
+        userDeleteBtn.setText("Delete");
+        userDeleteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userDeleteBtnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout usersPanelLayout = new javax.swing.GroupLayout(usersPanel);
+        usersPanel.setLayout(usersPanelLayout);
+        usersPanelLayout.setHorizontalGroup(
+            usersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, usersPanelLayout.createSequentialGroup()
+                .addGroup(usersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(usersPanelLayout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(jLabel16))
+                    .addGroup(usersPanelLayout.createSequentialGroup()
+                        .addGap(75, 75, 75)
+                        .addGroup(usersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(userIdInput, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(usersPanelLayout.createSequentialGroup()
+                        .addGap(168, 168, 168)
+                        .addComponent(userDeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 253, Short.MAX_VALUE)
+                .addGroup(usersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel15)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(146, 146, 146))
+        );
+        usersPanelLayout.setVerticalGroup(
+            usersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(usersPanelLayout.createSequentialGroup()
+                .addGroup(usersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(usersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(usersPanelLayout.createSequentialGroup()
+                        .addGap(148, 148, 148)
+                        .addComponent(jLabel17)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(userIdInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(userDeleteBtn))
+                    .addGroup(usersPanelLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
+
+        mainPanel.add(usersPanel, "card3");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -1025,6 +1161,30 @@ public class adminDashboard extends javax.swing.JFrame {
 
     private void orderDeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderDeleteBtnActionPerformed
         // TODO add your handling code here:
+
+        Vector row = model.getDataVector().elementAt(orderTable.getSelectedRow());
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Would You Like to Delete Order " + row.get(0) + " ?");
+        if (dialogResult == JOptionPane.YES_OPTION) {
+            int result;
+            try {
+                result = backend.deleteOrder((int) row.get(0));
+
+                if (result == -1) {
+                    JOptionPane.showMessageDialog(this, "Order Does Not Exsist.",
+                            "ERROR", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Order Deleted Succesfully",
+                            "INFORMATION",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+
+            } catch (Exception ex) {
+                Logger.getLogger(adminDashboard.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Something went wrong!",
+                        "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+
+        }
     }//GEN-LAST:event_orderDeleteBtnActionPerformed
 
     private void ordersPanelAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_ordersPanelAncestorAdded
@@ -1041,6 +1201,76 @@ public class adminDashboard extends javax.swing.JFrame {
                 orders.get(i).rating});
         }
     }//GEN-LAST:event_ordersPanelAncestorAdded
+
+    private void usersTableComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_usersTableComponentAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usersTableComponentAdded
+
+    private void usersTableAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_usersTableAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usersTableAncestorAdded
+
+    private void usersTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usersTableMouseClicked
+        // TODO add your handling code here:
+        Vector row = model.getDataVector().elementAt(usersTable.getSelectedRow());
+        userIdInput.setText(row.get(0).toString());
+
+    }//GEN-LAST:event_usersTableMouseClicked
+
+    private void userDeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userDeleteBtnActionPerformed
+        // TODO add your handling code here:
+        Vector row = model.getDataVector().elementAt(usersTable.getSelectedRow());
+
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Would You Like to Delete User " + row.get(0) + " ?");
+        if (dialogResult == JOptionPane.YES_OPTION) {
+            int result;
+            try {
+                result = backend.deleteUser(Integer.parseInt(userIdInput.getText()));
+
+                if (result == -1) {
+                    JOptionPane.showMessageDialog(this, "User Does Not Exsist.",
+                            "ERROR", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "User Deleted Succesfully",
+                            "INFORMATION",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+
+            } catch (Exception ex) {
+                Logger.getLogger(adminDashboard.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Something went wrong!",
+                        "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+
+        }
+
+    }//GEN-LAST:event_userDeleteBtnActionPerformed
+
+    private void usersPanelAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_usersPanelAncestorAdded
+        // TODO add your handling code here:
+        users = backend.getAllUsers();
+        model.setColumnIdentifiers(new Object[]{"User ID", "Name", "Email", "Phone Number", "Tiffins Ordered", "Total Bill Amount"});
+        usersTable.setModel(model);
+        model.setRowCount(0);
+
+        for (int i = 0; i < users.size(); i++) {
+            model.addRow(new Object[]{users.get(i).id, users.get(i).firstName + users.get(i).lastName,
+                users.get(i).email,
+                users.get(i).phoneNumber, backend.getUserOrderCount(users.get(i).id),
+                backend.getUserTotalBill(users.get(i).id)});
+        }
+    }//GEN-LAST:event_usersPanelAncestorAdded
+
+    private void usersPanelComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_usersPanelComponentShown
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usersPanelComponentShown
+
+    private void userBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userBtnActionPerformed
+        // TODO add your handling code here:
+        mainPanel.add("usersPanel", usersPanel);
+        cardLayout.show(mainPanel, "usersPanel");
+
+    }//GEN-LAST:event_userBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1094,6 +1324,9 @@ public class adminDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
@@ -1116,6 +1349,7 @@ public class adminDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JTextField nameInput;
@@ -1140,6 +1374,11 @@ public class adminDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel tiffinSoldLifetime1;
     private javax.swing.JLabel tiffinSoldToday1;
     private javax.swing.JButton tiffinsBtn;
+    private javax.swing.JButton userBtn;
+    private javax.swing.JButton userDeleteBtn;
+    private javax.swing.JTextField userIdInput;
     private javax.swing.JButton userSignInButton;
+    private javax.swing.JPanel usersPanel;
+    private javax.swing.JTable usersTable;
     // End of variables declaration//GEN-END:variables
 }
