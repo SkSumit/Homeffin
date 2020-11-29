@@ -150,13 +150,13 @@ public class Backend {
         return orderList;
     }
     
-    public ArrayList<Order> getOrdersHome(int uid){
+    public ArrayList<Order> getOrdersHistory(int uid){
         
         ArrayList<Order> orderList = new ArrayList<Order>();
         try {
             ResultSet results =  databaseconn.getOrders();
             while (results.next()) {
-                if (results.getInt("userId") == uid &&  !"Delivered".equals(results.getString("status")) && !"Rejected".equals(results.getString("status"))) {
+                if (results.getInt("userId") == uid ) {
                     Order order = new Order();
                     order.uid = results.getInt("userId");
                     order.tid = results.getInt("tiffinId");
@@ -166,12 +166,37 @@ public class Backend {
                     
                     orderList.add(order);
                 }
-                
+             
             }
         } catch (SQLException ex) {
             Logger.getLogger(Backend.class.getName()).log(Level.SEVERE, null, ex);
         }
         return orderList;
+        
+    }
+    
+        public ArrayList<Order> getOrdersHome(int uid){
+        
+        ArrayList<Order> orderListHome = new ArrayList<Order>();
+        try {
+            ResultSet results =  databaseconn.getOrders();
+            while (results.next()) {
+                if (results.getInt("userId") == uid &&  !"Delivered".equals(results.getString("status")) &&  !"Canceled".equals(results.getString("status")) && !"Rejected".equals(results.getString("status"))) {
+                    Order order = new Order();
+                    order.uid = results.getInt("userId");
+                    order.tid = results.getInt("tiffinId");
+                    order.status = results.getString("status");
+                    order.price = results.getInt("tiffinPrice");
+                    order.oid = results.getInt("orderId");
+                    
+                    orderListHome.add(order);
+                }
+             
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Backend.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return orderListHome;
         
     }
 
