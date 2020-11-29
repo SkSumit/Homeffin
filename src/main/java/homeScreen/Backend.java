@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Backend {
+
     private int results;
 
     private Databaseconn databaseconn;
@@ -17,11 +18,36 @@ public class Backend {
     }
 
     public int Register(String firstName, String lastName,
-            String mobile, String gender, String email, String password, String confirmedPassword , String Dp) {
+            String mobile, String gender, String email, String password, String confirmedPassword, String Dp) {
 
         int user = databaseconn.postSignUpUser(firstName, lastName, mobile, gender, email,
-                password, confirmedPassword ,Dp);
+                password, confirmedPassword, Dp);
         return user;
+    }
+
+    public ArrayList<Users> getAllUsers() {
+        ArrayList<Users> userList = new ArrayList<Users>();
+        try {
+
+            ResultSet result = databaseconn.getAllUsers();
+            while (result.next()) {
+                Users user = new Users();
+                user.id = result.getInt("userId");
+                user.firstName = result.getString("userFirstName");
+                user.lastName = result.getString("userLastName");
+                user.email = result.getString("userEmail");
+                user.gender = result.getString("userGender");
+                user.phoneNumber = result.getString("userPhoneNumber");
+                user.password = result.getString("userPassword");
+                user.profilePic = result.getString("profilePic");
+
+                userList.add(user);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Backend.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return userList;
     }
 
     public ArrayList<Tiffins> getTiffins() {
@@ -54,14 +80,14 @@ public class Backend {
     }
 
     public boolean deleteTiffin(int tiffinId) {
-        
+
         try {
             results = databaseconn.deleteTiffins(tiffinId);
-            if(results == 1){
-             return true;   
+            if (results == 1) {
+                return true;
+            } else {
+                return false;
             }
-            else
-             return false;
         } catch (Exception ex) {
             return false;
 
@@ -184,20 +210,79 @@ public class Backend {
         return result;
 
     }
-    
-    public int placeOrder(Tiffins menu , int uid){
-       Order order = new Order();
-       ArrayList<Order> tiffinList = new ArrayList<Order>();
-       order.tid = menu.id;//tiffinid
-       order.price = menu.price;//price
-       order.uid = uid;//userid
-       order.rating = 5;
-       tiffinList.add(order);
-       
-       int result = databaseconn.orderTiffin(tiffinList);
+
+    public int placeOrder(Tiffins menu, int uid) {
+        Order order = new Order();
+        ArrayList<Order> tiffinList = new ArrayList<Order>();
+        order.tid = menu.id;//tiffinid
+        order.price = menu.price;//price
+        order.uid = uid;//userid
+        order.rating = 5;
+        tiffinList.add(order);
+
+        int result = databaseconn.orderTiffin(tiffinList);
         return result;
     }
     
 
 
+    public int deleteOrder(int orderId) throws Exception {
+        int result = 0;
+        try {
+            result = databaseconn.deleteOrder(orderId);
+            if (result == 0) {
+                return -1;
+            }
+
+        } catch (Exception ex) {
+            throw ex;
+        }
+        return result;
+    }
+
+    public int getUserOrderCount(int userId) {
+        ResultSet result = null;
+        int count = 0;
+        try {
+            result = databaseconn.getUserOrderCount(userId);
+            while (result.next()) {
+                System.out.println("COUNT" + result.getString(1));
+                count = result.getInt(1);
+            }
+
+        } catch (Exception ex) {
+        }
+        return count;
+
+    }
+
+    public int getUserTotalBill(int userId) {
+        ResultSet result = null;
+        int count = 0;
+        try {
+            result = databaseconn.getUserTotalBill(userId);
+            while (result.next()) {
+                System.out.println("COUNT" + result.getString(1));
+                count = result.getInt(1);
+            }
+
+        } catch (Exception ex) {
+        }
+        return count;
+
+    }
+
+    public int deleteUser(int userId) throws Exception {
+        int result = 0;
+        try {
+            result = databaseconn.deleteUser(userId);
+            if (result == 0) {
+                return -1;
+            }
+
+        } catch (Exception ex) {
+            throw ex;
+        }
+        return result;
+    }
 }
