@@ -233,7 +233,8 @@ public class adminLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
         ArrayList<String> result = databaseconn.getSignInAdmin(emailInput.getText(), passwordInput.getText());
         if (result.size() > 0) {
-            JOptionPane.showMessageDialog(null, "Admin welcome to Dashboard.");
+            setVisible(false);
+            new adminDashboard().setVisible(true);
 
         } else {
             JOptionPane.showMessageDialog(null, "Login Information is Incorrect.");
